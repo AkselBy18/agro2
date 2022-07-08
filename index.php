@@ -185,9 +185,9 @@ label input[type="checkbox"] {
 		<p>No tienes cuenta aun? <a href="crear-cuenta.php">Crea la tuya</a> Solo tomara unos minutos</p>
 		<form action="validar.php" method="post"> 
         <div class="inputs">
-			<input type="text" placeholder="Nombre de usuario" required name="usuario">
+			<input type="text" placeholder="Nombre de usuario" required name="name">
 			<br>
-			<input type="password" placeholder="Contraseña" required name="contra">
+			<input type="password" placeholder="Contraseña" required name="pass">
 		</div>
 			
 			<br><br>

@@ -1,38 +1,36 @@
 <?php
-    $usuario = $_POST["usuario"];
-    $contrasenia = $_POST["contra"];
+    $user = $_POST["name"];
+    $contra = $_POST["pass"];
 
     session_start();
-    $_SESSION['usuario']=$usuario;
+    $_SESSION['name']=$user;
 
     include('conexion.php');
 
-    $consulta = "SELECT * FROM persona where correo='$usuario' and contrasena='$contrasenia'";
+    $consulta = "SELECT * FROM persona where correo='$user' and contrasena='$contra'";
 
     $resultado = mysqli_query($mysqli,$consulta);
     
-    $filas = mysqli_num_rows($resultado);
-
+    $filas = mysqli_fetch_array($resultado);
+    
     if($filas)
-    {
-        ?>
-         <script>
-           window.location="principal.php";
-         </script>
-        <?php
-    }
-    else
-    {
-        ?>
-        <script>
-            alert("Los datos son incorrectos");
-            window.location="index.php";
-        </script>
-        <?php
-
-    }
+      {
+         ?>
+          <script>
+               window.location="principal.php";
+          </script>
+          <?php
+      }
+      else
+      {
+          ?>
+          <script>
+              alert("Los datos son incorrectos");
+               window.location="index.php";
+          </script>
+          <?php
+      }
 
     mysqli_free_result($resultado);
-    mysqli_close($conexion);
-
+    mysqli_close($mysqli);
 ?>
