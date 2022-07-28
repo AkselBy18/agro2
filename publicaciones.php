@@ -18,7 +18,7 @@ if(empty($id))
     //consulta para obtenere toda la información de la tabla
     $resultados = $mysqli->query("SELECT pk_publicacion,fecha_publicacion,titulo,publicacion.descripcion,ruta_archivo, CONCAT(nombre,' ',apellido_paterno,' ',apeelido_materno) as 'nombre',cantidad,precio,correo
     FROM publicacion, persona,producto
-    WHERE publicacion.fk_persona=persona.pk_persona and pk_producto=fk_producto and estado = 0");
+    WHERE publicacion.fk_persona=persona.pk_persona and pk_producto=fk_producto and estado = 0  order by pk_publicacion desc");
 
     $datos = $resultados->fetch_all(MYSQLI_ASSOC);
 
@@ -54,7 +54,7 @@ if(empty($id))
   <div class="card-content">
     <div class="media">
       <div class="media-content">
-        <p class="title is-4"><?php echo $registro['nombre'];?></p>
+        <p class="title is-4" style='text-transform:capitalize;'><?php echo $registro['nombre'];?></p>
         <p class="subtitle is-6"><?php echo $registro['correo'];?></p>
         <p class="is-size-3"><?php echo $registro['titulo'];?></p>
         <img src="<?php echo $registro['ruta_archivo'];?>" alt="" style="width: 350px; height: 350px;">

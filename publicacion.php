@@ -24,7 +24,7 @@ if(isset($_GET['producto']))
     $datos = $resultados->fetch_all(MYSQLI_ASSOC);
 
     //consulta para obtenere toda la información de la tabla
-    $comentarios = $mysqli->query("SELECT contenido, CONCAT(nombre,' ', apellido_paterno,' ',apeelido_materno) as nombre  FROM comentario_publicacion, comentario, persona WHERE fk_publicacion = $producto AND fk_persona = pk_persona AND pk_comentario = fk_comentario");
+    $comentarios = $mysqli->query("SELECT contenido, CONCAT(nombre,' ', apellido_paterno,' ',apeelido_materno) as nombre  FROM comentario_publicacion, comentario, persona WHERE fk_publicacion = $producto AND fk_persona = pk_persona AND pk_comentario = fk_comentario ORDER BY pk_comentario_publicacion");
 
     $datosComentarios = $comentarios->fetch_all(MYSQLI_ASSOC);
 
@@ -97,6 +97,10 @@ if(isset($_GET['producto']))
         </div>  <br><br>
         <h1 class="is-size-2">Comentarios realizados</h1>
         <?php
+        if (empty($datosComentarios)) 
+        {
+            echo"<h1 class='is-size-5'>Sin comentarios </h1>";
+        }
         foreach($datosComentarios as $coment)
         {
             ?>
