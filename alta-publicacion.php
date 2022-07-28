@@ -1,5 +1,17 @@
 <?php
-include("conexion.php")
+include("conexion.php");
+session_start();
+$u = $_SESSION['username'];
+$c = $_SESSION['contra'];
+$id = $_SESSION['id'];
+
+if(empty($id))
+        {
+            echo "<script>
+                window.location='index.php';
+              </script>
+        ";
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,17 +20,27 @@ include("conexion.php")
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-    <h2>Realice una nueva publicacion</h2>
+    <?php
+    include_once"menu.php";
+    ?>
+    <div class="container is-max-desktop">
+    <h2 class="is-size-2">Realice una nueva publicación</h2>
+    </div>
+<div class="container is-max-desktop">
+  <div class="notification contenido">
     <form action="" method="post" enctype="multipart/form-data">
-        <label for="">Titulo</label>
-        <input type="text" name="titulo" id="titulo" required><br>
-        <label for="">Descripcion</label>
-        <input type="text" name="desc" id="desc" required><br>
-        <label for="">Foto del producto</label>
-        <input type="file" name="archivo" id="archivo" required><br>
-        <label for="">Producto</label>
+        <label class="label" for="">Titulo</label>
+        <input class="input" type="text" name="titulo" id="titulo" required><br>
+        <label class="label" for="">Descripcion</label>
+        <input class="input" type="text" name="desc" id="desc" required><br>
+        <label class="label" for="">Foto del producto</label>
+        <input class="input" type="file" name="archivo" id="archivo" required><br>
+        <label class="label" for="">Producto</label>
+    <div class="select">  
         <select name="producto" id="producto">
             <option value="">Seleccione...</option>
             <?php   
@@ -29,8 +51,19 @@ include("conexion.php")
                     echo ' <option value="'.$values['pk_producto'].'">'.$values['producto'].'</option>';
                 }
             ?>
-        <input type="submit" value="Guardar">
-    </form>
+        </select>    
+    </div>
+    <br><br><b></b>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-dark is-rounded is-responsive is-medium" type="submit">Guardar </button>
+  </div>
+  <div class="control">
+    <button class="button is-light is-rounded is-responsive is-medium" type="reset">Cancel</button>
+  </div>
+</div>
+ </div>
+</div>
     <?php
 
          if($_SERVER['REQUEST_METHOD']=='POST')
@@ -49,7 +82,7 @@ include("conexion.php")
          date_default_timezone_set('America/Mazatlan');    
          $fecha = date('Y-m-d');  
 
-         $persona = 1;
+         $persona = $id;
          // Mover la imgen a la carpeta 
          $ruta="img/".$archivoReal;
          move_uploaded_file($archivoTemp,$ruta);

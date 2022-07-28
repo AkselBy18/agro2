@@ -8,27 +8,35 @@ include("conexion.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-    <h2>Crear cuenta</h2>
+<center>
+<h1 class="is-size-2">Crear cuenta</h1>
+</center>
+<div class="container is-max-desktop">
+  <div class="notification contenido">
+
     <form action="" method="post">
-        <label for="">Nombre</label>
-        <input type="text" name="nombre" id="nombre" required><br>
-        <label for="">Apellido Paterno</label>
-        <input type="text" name="paterno" id="paterno" required><br>
-        <label for="">Apellido Materno</label>
-        <input type="text" name="materno" id="materno" required><br>
-        <label for="">direccion</label>
-        <input type="text" name="direccion" id="direccion" required><br>
-        <label for="">Telefono</label>
-        <input type="text" name="telefono" id="telefono" required><br>
-        <label for="">Correo</label>
-        <input type="email" name="correo" id="correo" required><br>
-        <label for="">Contraseña</label>
-        <input type="password" name="contra" id="contra" required><br>
-        <label for="">Fecha de nacimiento</label>
-        <input type="date" name="fecha" id="fecha" required><br>
-        <label for="">Ciudad</label>
+        <label for="" class="label">Nombre</label>
+        <input class="input" type="text" name="nombre" id="nombre" required><br>
+        <label for="" class="label">Apellido Paterno</label>
+        <input class="input" type="text" name="paterno" id="paterno" required><br>
+        <label for="" class="label">Apellido Materno</label>
+        <input class="input" type="text" name="materno" id="materno" required><br>
+        <label for="" class="label">direccion</label>
+        <input class="input" type="text" name="direccion" id="direccion" required><br>
+        <label for="" class="label">Telefono</label>
+        <input class="input" type="text" name="telefono" id="telefono" required><br>
+        <label for="" class="label">Correo</label>
+        <input class="input" type="email" name="correo" id="correo" required><br>
+        <label for="" class="label">Contraseña</label>
+        <input class="input" type="password" name="contra" id="contra" required><br>
+        <label for="" class="label">Fecha de nacimiento</label>
+        <input class="input" type="date" name="fecha" id="fecha" required><br>
+        <label for="" class="label">Ciudad</label>
+        <div class="select">
         <select name="ciudad" id="ciudad">
             <option value="">Seleccione...</option>
             <?php   
@@ -39,9 +47,20 @@ include("conexion.php");
                     echo ' <option value="'.$values['pk_ciudad'].'">'.$values['ciudad'].'</option>';
                 }
             ?>
-        </select><br>
-        <input type="submit" value="Guardar">
+        </select>
+        </div><br>
+        <p><b> No encuentra su ciudad? <a href="alta-ciudad.php">Ingrese aquí la suya</a></b></p><br>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-dark is-rounded is-responsive is-medium" type="submit">Guardar </button>
+  </div>
+  <div class="control">
+    <button class="button is-link is-light is-rounded is-responsive is-medium" type="reset">Cancel</button>
+  </div>
+</div>
     </form>
+    </div>
+</div>
     <?php
           if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //Recibimos los datos

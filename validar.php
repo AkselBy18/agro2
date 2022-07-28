@@ -1,36 +1,26 @@
 <?php
-    $user = $_POST["name"];
-    $contra = $_POST["pass"];
-
     session_start();
-    $_SESSION['name']=$user;
+    $user = $_POST['name'];
+    $clave = $_POST['pass'];
 
-    include('conexion.php');
+    include("conexion.php");
+    $q = "SELECT COUNT(*) as 'contar',pk_persona FROM persona where correo = '$user' and contrasena = '$clave'";
+    $consulta = mysqli_query($conexion,$q);
 
-    $consulta = "SELECT * FROM persona where correo='$user' and contrasena='$contra'";
-
-    $resultado = mysqli_query($mysqli,$consulta);
-    
-    $filas = mysqli_fetch_array($resultado);
-    
-    if($filas)
-      {
-         ?>
-          <script>
-               window.location="principal.php";
-          </script>
-          <?php
-      }
-      else
-      {
-          ?>
-          <script>
-              alert("Los datos son incorrectos");
-               window.location="index.php";
-          </script>
-          <?php
-      }
-
-    mysqli_free_result($resultado);
-    mysqli_close($mysqli);
+    $array = mysqli_fetch_array($consulta);
+    if($array['contar']>0)
+    {
+        $_SESSION['username']=$user;
+        $_SESSION['contra']=$clave;
+        $_SESSION['id']=$array['pk_persona'];
+        header("location: principal.php");
+    }
+    else
+    {
+        echo "<script>
+                alert('Datos incorrectos');
+                window.location='index.php';
+              </script>
+        ";
+    }
 ?>

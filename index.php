@@ -199,9 +199,8 @@ label input[type="checkbox"] {
 		</div>
 			
 			<br>
-			<button type="submit" >Iniciar Sesion</button>
+			<button type="submit" name="ingresar" >Iniciar Sesion</button>
 	</div>
     </form>
 	
 </div>
-<!-- partial -->

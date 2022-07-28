@@ -8,20 +8,35 @@ include("conexion.php")
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-    <h2>Alta de ciudades</h2>
+<div class="container is-max-desktop">
+    <h2 class="is-size-2">Alta de ciudades</h2>
+
+    <div class="notification contenido">
     <form action="" method="post">
-        <label for="">Nombre</label>
-        <input type="text" name="nombre" id="nombre" required><br>
-        <label for="">Estado</label>
-        <input type="text" name="estado" id="estado" required><br>
-        <label for="">Municipio</label>
-        <input type="text" name="muni" id="muni" required><br>
-        <label for="">Codigo Postal</label>
-        <input type="text" name="codigo" id="codigo" required><br>
-        <input type="submit" value="Guardar">
+        <label class="label" for="">Nombre</label>
+        <input class="input" type="text" name="nombre" id="nombre" required><br>
+        <label class="label" for="">Estado</label>
+        <input class="input" type="text" name="estado" id="estado" required><br>
+        <label class="label" for="">Municipio</label>
+        <input class="input" type="text" name="muni" id="muni" required><br>
+        <label class="label" for="">Codigo Postal</label>
+        <input class="input" type="text" name="codigo" id="codigo" required><br>
+        <br>
+        <div class="field is-grouped">
+  <div class="control">
+    <button class="button is-dark is-rounded is-responsive is-medium" type="submit">Guardar </button>
+  </div>
+  <div class="control">
+    <button class="button is-link is-light is-rounded is-responsive is-medium" type="reset">Cancel</button>
+  </div>
+</div>
     </form>
+</div>
+</div>
     <?php
           if($_SERVER['REQUEST_METHOD'] == 'POST'){
             //Recibimos los datos
@@ -37,9 +52,7 @@ include("conexion.php")
 
             //ejecutamos la consulta
             if($sentencia->execute()){
-                echo '<script>
-                        alert("Datos guardados correctamente");
-                    </script>';
+                    header("location: crear-cuenta.php");
             }else{
                 echo '<script>
                         alert("Error al guardar los datos");
