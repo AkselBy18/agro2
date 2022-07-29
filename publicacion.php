@@ -19,7 +19,7 @@ if(isset($_GET['producto']))
     $producto = $_GET['producto'];
     include("conexion.php"); 
     //consulta para obtenere toda la información de la tabla
-    $resultados = $mysqli->query("SELECT pk_publicacion,titulo,publicacion.descripcion,ruta_archivo,cantidad,precio,fk_producto FROM publicacion,producto where pk_publicacion = $producto and fk_producto = pk_producto");
+    $resultados = $mysqli->query("SELECT pk_publicacion,titulo,publicacion.descripcion,ruta_archivo,cantidad,precio,fk_producto,fk_persona FROM publicacion,producto where pk_publicacion = $producto and fk_producto = pk_producto");
 
     $datos = $resultados->fetch_all(MYSQLI_ASSOC);
 
@@ -70,6 +70,7 @@ if(isset($_GET['producto']))
     $comicion = ($sub)*0.01;
     $total=($sub)+$comicion;
     $producto=$registro['fk_producto'];
+    $idPersonaVende=$registro['fk_persona'];
     {
         ?>
       
@@ -123,14 +124,14 @@ if(isset($_GET['producto']))
           
 
              //Query para insertar los datos
-             $sentencia = $mysqli->prepare("INSERT INTO venta (fk_producto,fecha_compra,fk_persona,comision) VALUES (?,?,?,?)");
+             $sentencia = $mysqli->prepare("INSERT INTO venta (fk_producto,fecha_compra,fk_persona,fk_persona_vende,comision) VALUES (?,?,?,?,?)");
 
             // Query para actualizar la publicacion y no mostrarla 
              $update ="UPDATE `publicacion` SET `estado` = '1' WHERE `publicacion`.`pk_publicacion` = $publicacion"; 
 
              $mysqli->query($update);
 
-             $sentencia->bind_param("isis", $producto,$fecha,$id,$comicion);
+             $sentencia->bind_param("isiis", $producto,$fecha,$id,$idPersonaVende,$comicion);
  
              //ejecutamos la consulta
              if($sentencia->execute()){

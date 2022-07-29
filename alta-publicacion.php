@@ -38,7 +38,22 @@ if(empty($id))
         <label class="label" for="">Descripcion</label>
         <input class="input" type="text" name="desc" id="desc" required><br>
         <label class="label" for="">Foto del producto</label>
-        <input class="input" type="file" name="archivo" id="archivo" required><br>
+        <div class="file has-name">
+  <label class="file-label">
+    <input class="file-input" type="file" name="archivo" id="archivo">
+    <span class="file-cta">
+      <span class="file-icon">
+        <i class="fas fa-upload"></i>
+      </span>
+      <span class="file-label">
+        Seleccione el archivo
+      </span>
+    </span>
+    <span class="file-name">
+      Foto del producto
+    </span>
+  </label>
+</div>  <br>
         <label class="label" for="">Producto</label>
     <div class="select">  
         <select name="producto" id="producto">

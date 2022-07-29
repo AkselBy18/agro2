@@ -27,6 +27,13 @@
     WHERE publicacion.fk_persona=persona.pk_persona and pk_producto=fk_producto and fk_persona=$id");
     
     $datosPublicacion = $pubUsuario->fetch_all(MYSQLI_ASSOC);
+
+    // consulta para obtener las ventas realizadas de los productos
+    $ventas = $mysqli->query("SELECT pk_venta, pk_producto, nombre_producto, cantidad, precio, fecha_compra, CONCAT(nombre,' ',apellido_paterno,' ',apeelido_materno) as 'nombre', comision FROM producto,persona,venta
+    WHERE fk_producto=pk_producto and fk_persona = pk_persona and fk_persona_vende = $id");
+    
+    $datosVentas = $ventas->fetch_all(MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,9 +89,59 @@
     <?php
     }
     ?>
-
-
+    <h1 class="title">Ventas realizadas</h1>
+    
+    <?php
+    if (empty($datosVentas)) 
+    {
+        echo"<h1 class='is-size-5'>Sin ventas realizadas </h1>";
+    }
+    else{
+        ?>
+        <div class="table-container " >
+                                <table class="table is-striped is-bordered ">
+                                <thead>
+                                    <tr>
+                                        <th>Id de venta</th>
+                                        <th>Nombre Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Comicion</th>
+                                        <th>Total con comicion</th>
+                                        <th>Fecha compra</th>
+                                        <th>Persona de compra</th>    
+                                        <th>Ociones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+        <?php
+        foreach($datosVentas as $ventas)
+        {
+            
+            ?>
+                        
+                            <tr>
+                                <th><?php echo $ventas['pk_venta'] ?></th>
+                                <th><?php echo $ventas['nombre_producto'] ?></th>
+                                <th><?php echo $ventas['cantidad'] ?></th>
+                                <th><?php echo $ventas['precio'] ?></th>
+                                <th><?php echo $ventas['comision'] ?></th>
+                                <th><?php echo $ventas['precio']*$ventas['cantidad']+$ventas['comision'] ?></th>
+                                <th><?php echo $ventas['fecha_compra'] ?></th>
+                                <th><?php echo $ventas['nombre'] ?></th>
+                                <th><a href="factura.php?venta=<?php echo $ventas['pk_venta']?>&producto=<?php echo $ventas['pk_producto']?>"> <button class="button is-success is-outlined is-small"><b>Facturar</b></button></a></th>
+                            </tr>
+                        
+             
+            <?php
+        }
+    }
+    ?>
+    </tbody>
+    </table>
+       </div>
     </div>
+    
 </body>
 </html>
 
