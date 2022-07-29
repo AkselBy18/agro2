@@ -75,12 +75,16 @@ $mostrarDatosFactura = $mostrarFactura->fetch_all(MYSQLI_ASSOC);
     <title>AGRO</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="css/estilo.css">
+    <link rel="icon" href="img/AGRO-LOGO.png">
 </head>
 <body>
     <br><br>
     <div class="container is-max-desktop">
         <div class="box" style="height:auto; background-color:#E9EFC0; border-color: #83BD75;">
         <h1 class="title is-1">Factura</h1>
+        <figure class="image is-128x128">
+        <img src="img/AGRO-LOGO.png">
+        </figure>
         <?php
         foreach ($mostrarDatosFactura as $valores) {
             $total = $valores['cantidad']*$valores['precio']+$valores['comision'];

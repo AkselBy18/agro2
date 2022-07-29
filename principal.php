@@ -44,6 +44,7 @@
     <title>Agro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="css/estilo.css">
+    <link rel="icon" href="img/AGRO-LOGO.png">
 </head>
 <body>
     
@@ -52,10 +53,13 @@
     ?>
 
     <div class="borde">
+    <figure class="image is-128x128">
+        <img src="img/AGRO-LOGO.png">
+    </figure>
     <?php
         echo"<h1 class='is-size-2' style='text-transform:capitalize;'>Bienvenido $info</h1>";
     ?>
-    
+
     <h1 class="title">Publicaciones realizadas</h1>
     <h2 class="subtitle">Publicaciones activas e inactivas </h2>
     <?php

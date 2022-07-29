@@ -10,6 +10,7 @@ include("conexion.php")
     <title>Agro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="css/estilo.css">
+    <link rel="icon" href="img/AGRO-LOGO.png">
 </head>
 <body>
 <div class="container is-max-desktop">

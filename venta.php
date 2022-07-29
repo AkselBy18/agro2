@@ -22,6 +22,7 @@ if(isset($_GET['compra']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGRO</title>
    <link rel="stylesheet" href="css/estilo.css">
+   <link rel="icon" href="img/AGRO-LOGO.png">
 </head>
 <body>
     <div class="borde">

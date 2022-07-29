@@ -165,6 +165,7 @@ label input[type="checkbox"] {
 }
 </style>
 <br><br>
+<link rel="icon" href="img/AGRO-LOGO.png">
 <!-- partial:index.partial.html -->
 <div class="box-form">
 	<div class="left">
