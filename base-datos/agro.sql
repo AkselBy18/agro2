@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2022 a las 18:35:51
+-- Tiempo de generación: 08-08-2022 a las 20:51:18
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -65,7 +65,12 @@ INSERT INTO `comentario` (`pk_comentario`, `contenido`) VALUES
 (23, 'Hola amigo está disponible para el estado de Jalis'),
 (24, 'Esta disponible para el estado de Jalisco?'),
 (25, 'Puede venderme la mitad?'),
-(26, 'Puede venderme 500 kg solamente?');
+(26, 'Puede venderme 500 kg solamente?'),
+(28, 'Como esta?'),
+(29, 'Cuanto es lo menos que puede vender?'),
+(30, 'Son 200 KG minimo'),
+(31, 'Cuantos kilos disponibles?'),
+(32, 'Me lo llevo');
 
 -- --------------------------------------------------------
 
@@ -90,7 +95,12 @@ INSERT INTO `comentario_publicacion` (`pk_comentario_publicacion`, `fk_publicaci
 (3, 3, 1, 22),
 (4, 1, 2, 24),
 (5, 3, 2, 25),
-(6, 1, 2, 26);
+(6, 1, 2, 26),
+(8, 1, 1, 28),
+(9, 4, 1, 29),
+(10, 4, 3, 30),
+(11, 5, 1, 31),
+(12, 9, 1, 32);
 
 -- --------------------------------------------------------
 
@@ -102,8 +112,18 @@ CREATE TABLE `factura` (
   `pk_factura` int(11) NOT NULL,
   `fecha_factura` date NOT NULL,
   `fk_producto` int(11) NOT NULL,
-  `fk_ciudad` int(11) NOT NULL
+  `fk_ciudad` int(11) NOT NULL,
+  `fk_venta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`pk_factura`, `fecha_factura`, `fk_producto`, `fk_ciudad`, `fk_venta`) VALUES
+(1, '2022-07-28', 1, 1, 11),
+(2, '2022-07-28', 2, 1, 12),
+(3, '2022-07-28', 5, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -142,8 +162,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`pk_persona`, `nombre`, `apellido_paterno`, `apeelido_materno`, `direccion`, `telefono`, `correo`, `contrasena`, `fecha_nacimiento`, `ciudad`, `fk_tipo_persona`) VALUES
-(1, 'Aksel', 'herrera', 'gonzalez', 'veracruz', 2147483647, 'akselherrera18@gmail.com', 'aksel', '2022-04-10', '0', 2),
-(2, 'Mario', 'Macias', 'Romero', 'Durango #4', 2147483647, 'mario@gmail.com', 'mario', '2014-05-12', '1', 2);
+(1, 'Aksel', 'herrera', 'gonzalez', 'veracruz', 2147483647, 'akselherrera18@gmail.com', 'aksel', '2022-04-10', '1', 2),
+(2, 'Mario', 'Macias', 'Romero', 'Durango #4', 2147483647, 'mario@gmail.com', 'mario', '2014-05-12', '1', 2),
+(3, 'Raul Luis', 'Rangel', 'Ramos', 'veracruz', 2147483647, 'raul@gmail.com', 'raul', '2021-12-26', '2', 2);
 
 -- --------------------------------------------------------
 
@@ -165,7 +186,10 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`pk_producto`, `nombre_producto`, `descripcion`, `cantidad`, `precio`) VALUES
 (1, 'Frijol', 'Frijol peruano de gama alta', 1500, 20),
-(2, 'Arroz de grano largo', 'Arroz del tipo grano largo de calidad media', 40000, 44);
+(2, 'Arroz de grano largo', 'Arroz del tipo grano largo de calidad media', 40000, 44),
+(3, 'Tabaco', '500gk de tabaco seco', 500, 60),
+(4, 'Elote', 'Elote blanco tierno', 1200, 50),
+(5, 'Manzana verde', 'Manzan verde de jalisco', 300, 108);
 
 -- --------------------------------------------------------
 
@@ -189,8 +213,11 @@ CREATE TABLE `publicacion` (
 --
 
 INSERT INTO `publicacion` (`pk_publicacion`, `titulo`, `descripcion`, `ruta_archivo`, `fecha_publicacion`, `estado`, `fk_persona`, `fk_producto`) VALUES
-(1, 'Venta de frijol', '1500KG disponibles ', 'img/frijoles.jpg', '2022-07-24', 0, 1, 1),
-(3, 'Venta de arroz calidad media', 'Varios kilos de arroz de grano largo disponibles p', 'img/arroz.jpg', '2022-07-28', 1, 1, 2);
+(1, 'Venta de frijol', '1500KG disponibles ', 'img/frijoles.jpg', '2022-07-24', 1, 1, 1),
+(3, 'Venta de arroz calidad media', 'Varios kilos de arroz de grano largo disponibles p', 'img/arroz.jpg', '2022-07-28', 1, 1, 2),
+(4, 'Venta de tabaco seco por horno', 'Disponible en todo guadalajara son 500 KG', 'img/dried-tobacco-photo.jpg', '2022-07-28', 0, 3, 3),
+(5, 'Elote blanco ', 'Elote blanco disponible en el estado de Nuevo Leon', 'img/como-elegir-elotes-en-buen-estado.jpg', '2022-07-28', 0, 2, 4),
+(9, 'Venta de manzana de alta calidad', 'Disponible 300 KG de manzana verde', 'img/manzana.jpg', '2022-07-28', 1, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -222,6 +249,7 @@ CREATE TABLE `venta` (
   `fk_producto` int(11) NOT NULL,
   `fecha_compra` date NOT NULL,
   `fk_persona` int(11) NOT NULL,
+  `fk_persona_vende` int(11) DEFAULT NULL,
   `comision` decimal(20,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -229,8 +257,10 @@ CREATE TABLE `venta` (
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`pk_venta`, `fk_producto`, `fecha_compra`, `fk_persona`, `comision`) VALUES
-(10, 2, '2022-07-28', 2, '17600');
+INSERT INTO `venta` (`pk_venta`, `fk_producto`, `fecha_compra`, `fk_persona`, `fk_persona_vende`, `comision`) VALUES
+(11, 1, '2022-07-28', 3, 1, '300'),
+(12, 2, '2022-07-28', 2, 1, '17600'),
+(13, 5, '2022-07-28', 1, 3, '324');
 
 --
 -- Índices para tablas volcadas
@@ -263,7 +293,8 @@ ALTER TABLE `comentario_publicacion`
 ALTER TABLE `factura`
   ADD PRIMARY KEY (`pk_factura`),
   ADD KEY `fk_ciudad` (`fk_ciudad`),
-  ADD KEY `fk_producto` (`fk_producto`);
+  ADD KEY `fk_producto` (`fk_producto`),
+  ADD KEY `fk_venta` (`fk_venta`);
 
 --
 -- Indices de la tabla `factura_persona`
@@ -305,7 +336,8 @@ ALTER TABLE `tipo_persona`
 ALTER TABLE `venta`
   ADD PRIMARY KEY (`pk_venta`),
   ADD KEY `fk_persona` (`fk_persona`),
-  ADD KEY `fk_producto` (`fk_producto`);
+  ADD KEY `fk_producto` (`fk_producto`),
+  ADD KEY `fk_persona_vende` (`fk_persona_vende`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -321,19 +353,19 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `pk_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `pk_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario_publicacion`
 --
 ALTER TABLE `comentario_publicacion`
-  MODIFY `pk_comentario_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pk_comentario_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `pk_factura` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pk_factura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `factura_persona`
@@ -345,19 +377,19 @@ ALTER TABLE `factura_persona`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `pk_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pk_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `pk_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pk_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `publicacion`
 --
 ALTER TABLE `publicacion`
-  MODIFY `pk_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pk_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_persona`
@@ -369,7 +401,7 @@ ALTER TABLE `tipo_persona`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `pk_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `pk_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -388,7 +420,8 @@ ALTER TABLE `comentario_publicacion`
 --
 ALTER TABLE `factura`
   ADD CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`fk_ciudad`) REFERENCES `ciudad` (`pk_ciudad`),
-  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`fk_producto`) REFERENCES `producto` (`pk_producto`);
+  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`fk_producto`) REFERENCES `producto` (`pk_producto`),
+  ADD CONSTRAINT `fk_venta` FOREIGN KEY (`fk_venta`) REFERENCES `venta` (`pk_venta`);
 
 --
 -- Filtros para la tabla `factura_persona`
@@ -413,6 +446,7 @@ ALTER TABLE `publicacion`
 -- Filtros para la tabla `venta`
 --
 ALTER TABLE `venta`
+  ADD CONSTRAINT `fk_persona_vende` FOREIGN KEY (`fk_persona_vende`) REFERENCES `persona` (`pk_persona`),
   ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`fk_persona`) REFERENCES `persona` (`pk_persona`),
   ADD CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`fk_producto`) REFERENCES `producto` (`pk_producto`);
 COMMIT;

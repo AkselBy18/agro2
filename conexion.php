@@ -13,3 +13,5 @@ if(mysqli_connect_errno())
     echo "Error en la conexion ".mysqli_connect_error();
     exit();
 }
+
+// comentario
